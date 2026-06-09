@@ -1,0 +1,423 @@
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "DM Sans", sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  background: #FDE8E8;
+}
+
+.hide { display: none !important; }
+
+/* ═══════════════════════════════════════
+   LANDING SCREEN
+═══════════════════════════════════════ */
+#landing-screen {
+  background: #F9CACA;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-card {
+  background: #fff;
+  border: 3px solid #2D2D2D;
+  border-radius: 18px;
+  padding: 2.4rem 2.4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  width: min(390px, 92vw);
+  box-shadow: 6px 6px 0px #2D2D2D;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-title {
+  font-family: "Fredoka One", cursive;
+  font-size: 2.3rem;
+  font-weight: 400;
+  color: #2D2D2D;
+  letter-spacing: 0.5px;
+}
+
+.logo-o, .logo-x { font-size: 1.8rem; }
+
+.tagline {
+  color: #aaa;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: -0.4rem;
+}
+
+/* Inputs */
+.input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #2D2D2D;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.input-group input {
+  padding: 0.55rem 0.85rem;
+  border: 2px solid #2D2D2D;
+  border-radius: 8px;
+  background: #FDE8E8;
+  color: #2D2D2D;
+  font-size: 0.92rem;
+  font-family: inherit;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.input-group input::placeholder { color: #c9a8a8; font-weight: 400; }
+.input-group input:focus {
+  border-color: #E05C5C;
+  background: #fff;
+}
+.input-group input:disabled {
+  color: #bbb;
+  background: #f5f5f5;
+  border-color: #ddd;
+}
+
+/* AI toggle */
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2D2D2D;
+}
+
+.toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+.toggle-switch input { display: none; }
+.slider {
+  position: absolute; inset: 0;
+  background: #e8d0d0;
+  border: 2px solid #2D2D2D;
+  border-radius: 34px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.slider::before {
+  content: "";
+  position: absolute;
+  left: 2px; bottom: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: #2D2D2D;
+  transition: transform 0.2s;
+}
+.toggle-switch input:checked + .slider { background: #E05C5C; }
+.toggle-switch input:checked + .slider::before { transform: translateX(20px); background: #fff; }
+
+/* Difficulty */
+.difficulty-row { display: flex; gap: 0.4rem; }
+
+.diff-btn {
+  padding: 0.28rem 0.75rem;
+  border: 2px solid #2D2D2D;
+  border-radius: 6px;
+  background: #fff;
+  color: #2D2D2D;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.diff-btn:hover { background: #FDE8E8; }
+.diff-btn.active { background: #2D2D2D; color: #F9CACA; }
+
+/* Start button */
+#start-btn {
+  width: 100%;
+  margin-top: 0.2rem;
+  padding: 0.75rem;
+  font-family: "Fredoka One", cursive;
+  font-size: 1.12rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  background: #E05C5C;
+  color: #fff;
+  border: 3px solid #2D2D2D;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #2D2D2D;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+#start-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px #2D2D2D;
+}
+#start-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0px #2D2D2D;
+}
+
+/* ═══════════════════════════════════════
+   GAME SCREEN  — fixed height layout
+═══════════════════════════════════════ */
+#game-screen {
+  background: #FDE8E8;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+/* Scoreboard */
+#scoreboard {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid #dbb8b8;
+  border-radius: 14px;
+  overflow: hidden;
+  width: min(360px, 90vw);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.score-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.6rem 0.4rem;
+  gap: 0.05rem;
+  transition: background 0.2s;
+}
+.score-card.active-turn { background: #F9CACA; }
+
+.score-symbol { font-size: 1.3rem; line-height: 1; }
+.score-name {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #2D2D2D;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.score-value {
+  font-family: "Fredoka One", cursive;
+  font-size: 1.8rem;
+  color: #2D2D2D;
+  line-height: 1.1;
+}
+
+.score-divider {
+  width: 1.5px;
+  background: #dbb8b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#round-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #E05C5C;
+  background: #dbb8b8;
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 2px;
+}
+
+/* Turn indicator */
+#turn-indicator {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2D2D2D;
+  background: #fff;
+  border: 1.5px solid #dbb8b8;
+  padding: 0.3rem 1rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* Board — key fix: use a fixed square based on the shorter viewport axis */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: min(280px, 72vw, 42vh);
+  height: min(280px, 72vw, 42vh);
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #dbb8b8;
+  border-radius: 10px;
+  background: #fff;
+  font-size: clamp(1.3rem, 6vmin, 2.4rem);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.box:not([disabled]):hover {
+  background: #FDE8E8;
+}
+.box.pop-in { animation: popIn 0.2s ease; }
+.box.win-box {
+  background: #F9CACA;
+  border-color: #E05C5C;
+}
+
+@keyframes popIn {
+  0%   { transform: scale(0.55); }
+  70%  { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
+
+/* Controls */
+.game-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.game-controls button {
+  padding: 0.4rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1.5px solid #dbb8b8;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.game-controls button:hover { filter: brightness(0.96); }
+
+#undo-btn  { background: #ffd6d6; color: #2D2D2D; }
+#reset-btn { background: #E05C5C; color: #fff; }
+#home-btn  { background: #f5f5f5; color: #2D2D2D; }
+
+/* ═══════════════════════════════════════
+   RESULT OVERLAY
+═══════════════════════════════════════ */
+#result-overlay {
+  position: fixed;
+  inset: 0;
+  background: #F9CACA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+#confetti-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  width: 9px; height: 14px;
+  border-radius: 2px;
+  opacity: 0.9;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  to { transform: translateY(110vh) rotate(540deg); opacity: 0; }
+}
+
+.result-card {
+  background: #fff;
+  border: 3px solid #2D2D2D;
+  border-radius: 18px;
+  padding: 2.2rem 2.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  box-shadow: 7px 7px 0px #2D2D2D;
+  text-align: center;
+  width: min(340px, 88vw);
+}
+
+#result-emoji { font-size: 3.2rem; }
+
+#msg {
+  font-family: "Fredoka One", cursive;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #2D2D2D;
+}
+
+.result-mini-score {
+  font-size: 0.95rem;
+  color: #888;
+  font-weight: 600;
+}
+.result-mini-score strong {
+  font-family: "Fredoka One", cursive;
+  font-size: 1.2rem;
+  color: #E05C5C;
+}
+
+.result-btns { display: flex; gap: 0.65rem; margin-top: 0.2rem; }
+
+.result-btns button {
+  padding: 0.6rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 2px solid #2D2D2D;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #2D2D2D;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.result-btns button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #2D2D2D;
+}
+.result-btns button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #2D2D2D;
+}
+
+#new-btn  { background: #E05C5C; color: #fff; }
+#back-btn { background: #f5f5f5; color: #2D2D2D; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 380px) {
+  .landing-card { padding: 1.8rem 1.3rem; }
+  .logo-title { font-size: 1.9rem; }
+  .game-controls button { padding: 0.35rem 0.65rem; font-size: 0.73rem; }
+}

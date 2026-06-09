@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic-Tac-Toe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── LANDING SCREEN ── -->
+  <div id="landing-screen">
+    <div class="landing-card">
+      <div class="logo">
+        <span class="logo-o">⭕</span>
+        <span class="logo-title">Tic Tac Toe</span>
+        <span class="logo-x">❌</span>
+      </div>
+      <p class="tagline">Enter names and battle it out!</p>
+
+      <div class="input-group">
+        <label>Player O</label>
+        <input type="text" id="playerO" placeholder="e.g. Alice" maxlength="16" />
+      </div>
+      <div class="input-group">
+        <label>Player X</label>
+        <input type="text" id="playerX" placeholder="e.g. Bob" maxlength="16" />
+      </div>
+
+      <div class="mode-toggle">
+        <span class="mode-label">vs Friend</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="ai-toggle" />
+          <span class="slider"></span>
+        </label>
+        <span class="mode-label">vs AI 🤖</span>
+      </div>
+
+      <div id="ai-difficulty" class="difficulty-row hide">
+        <button class="diff-btn active" data-diff="easy">Easy</button>
+        <button class="diff-btn" data-diff="medium">Medium</button>
+        <button class="diff-btn" data-diff="hard">Hard</button>
+      </div>
+
+      <button id="start-btn">Start Game 🚀</button>
+    </div>
+  </div>
+
+  <!-- ── GAME SCREEN ── -->
+  <div id="game-screen" class="hide">
+
+    <div id="scoreboard">
+      <div class="score-card" id="score-card-o">
+        <span class="score-symbol">⭕</span>
+        <span class="score-name" id="nameO">Player O</span>
+        <span class="score-value" id="scoreO">0</span>
+      </div>
+      <div class="score-divider">
+        <span id="round-label">Round 1</span>
+      </div>
+      <div class="score-card" id="score-card-x">
+        <span class="score-symbol">❌</span>
+        <span class="score-name" id="nameX">Player X</span>
+        <span class="score-value" id="scoreX">0</span>
+      </div>
+    </div>
+
+    <p id="turn-indicator"></p>
+
+    <div class="container">
+      <div class="game" id="game-board">
+        <button class="box" data-index="0"></button>
+        <button class="box" data-index="1"></button>
+        <button class="box" data-index="2"></button>
+        <button class="box" data-index="3"></button>
+        <button class="box" data-index="4"></button>
+        <button class="box" data-index="5"></button>
+        <button class="box" data-index="6"></button>
+        <button class="box" data-index="7"></button>
+        <button class="box" data-index="8"></button>
+      </div>
+    </div>
+
+    <div class="game-controls">
+      <button id="undo-btn" title="Undo last move">↩ Undo</button>
+      <button id="reset-btn" title="Reset scores">🔄 Reset Scores</button>
+      <button id="home-btn" title="Back to home">🏠 Home</button>
+    </div>
+  </div>
+
+  <!-- ── RESULT OVERLAY ── -->
+  <div id="result-overlay" class="hide">
+    <div id="confetti-container"></div>
+    <div class="result-card">
+      <div id="result-emoji">🎉</div>
+      <p id="msg"></p>
+      <div class="result-mini-score">
+        <span id="mini-nameO"></span> <strong id="mini-scoreO">0</strong>
+        &nbsp;—&nbsp;
+        <strong id="mini-scoreX">0</strong> <span id="mini-nameX"></span>
+      </div>
+      <div class="result-btns">
+        <button id="new-btn">▶ Next Round</button>
+        <button id="back-btn">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
